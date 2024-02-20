@@ -8,7 +8,7 @@
 #use bash instead of sh
 export SHELL=/bin/bash
 WORKING_DIR = $(CURDIR)
-PKG := npx pkg ./ --compress Brotli --options max_old_space_size=16384
+PKG := npx pkg ./ --compress Brotli --options max_old_space_size=32768
 PKG_NODE_VERSION := $(shell head -1 .nvmrc | cut -f1 -d '.')
 BINARY_WRAPPER_DIR = ts-binary-wrapper
 EXTENSIBLE_CLI_DIR = cliv2
@@ -259,7 +259,7 @@ release-pre:
 	@echo "-- Validating artifacts"
 	@./release-scripts/validate-checksums.sh
 	@echo "-- Validating upload permissions"
-	@./release-scripts/upload-artifacts.sh --dry-run latest github npm
+	@./release-scripts/upload-artifacts.sh --dry-run preview latest github npm
 	@echo "-- Publishing to S3 /version"
 	@./release-scripts/upload-artifacts.sh version
 
